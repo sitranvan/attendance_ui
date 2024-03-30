@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query'
 import { useContext, useState } from 'react'
 import { toast } from 'react-toastify'
-import { logoutApi } from '~/apis/auth.api'
+import authApi from '~/apis/auth.api'
 import { AppContext } from '~/contexts/app.context'
 import { getRefreshTokenFromLS } from '~/utils/auth'
 
@@ -9,7 +9,7 @@ export default function DashboardHeader() {
     const { setIsAuthenticated, setProfile, profile } = useContext(AppContext)
     const [openDropdown, setOpenDropdown] = useState<boolean>(false)
     const logoutMutation = useMutation({
-        mutationFn: (body: { refresh_token: string }) => logoutApi(body),
+        mutationFn: (body: { refresh_token: string }) => authApi.logout(body),
         onSuccess: (data) => {
             toast.success(data.data.message)
             setIsAuthenticated(false)

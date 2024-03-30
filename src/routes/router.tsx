@@ -6,8 +6,13 @@ import Login from '~/pages/Login'
 import Register from '~/pages/Register'
 import { ProtectedRoute, RejectedRoute } from './roles.routes'
 import pathRouter from '~/constants/path'
-import Attendance from '~/pages/Attendance'
-import QRCode from '~/pages/Attendance/pages/QRCode'
+
+import QRCode from '~/pages/ManagerAttendance/pages/QRCode'
+import ManagerStudent from '~/pages/ManagerStudent/ManagerStudent'
+import HistoryAttendance from '~/pages/ManagerAttendance/pages/HistoryAttendance'
+import Attendance from '~/pages/ManagerAttendance/ManagerAttendance'
+import HistoryAttendanceDetail from '~/pages/ManagerAttendance/pages/HistoryAttendanceDetail'
+import ManagerModule from '~/pages/ManagerModule'
 
 export default function useRoutesElement() {
     return useRoutes([
@@ -32,10 +37,42 @@ export default function useRoutesElement() {
                     ),
                 },
                 {
-                    path: '/attendance/:id',
+                    path: pathRouter.attendance_qrcode,
                     element: (
                         <DashboardLayout>
                             <QRCode />
+                        </DashboardLayout>
+                    ),
+                },
+                {
+                    path: pathRouter.attendance_history,
+                    element: (
+                        <DashboardLayout>
+                            <HistoryAttendance />
+                        </DashboardLayout>
+                    ),
+                },
+                {
+                    path: pathRouter.attendance_history_detail,
+                    element: (
+                        <DashboardLayout>
+                            <HistoryAttendanceDetail />
+                        </DashboardLayout>
+                    ),
+                },
+                {
+                    path: pathRouter.student,
+                    element: (
+                        <DashboardLayout>
+                            <ManagerStudent />
+                        </DashboardLayout>
+                    ),
+                },
+                {
+                    path: pathRouter.module,
+                    element: (
+                        <DashboardLayout>
+                            <ManagerModule />
                         </DashboardLayout>
                     ),
                 },

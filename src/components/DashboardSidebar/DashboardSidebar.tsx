@@ -1,9 +1,29 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined'
+import ChecklistRtlOutlinedIcon from '@mui/icons-material/ChecklistRtlOutlined'
+import MenuBookOutlinedIcon from '@mui/icons-material/MenuBookOutlined'
+import AutoStoriesOutlinedIcon from '@mui/icons-material/AutoStoriesOutlined'
+import GroupAddOutlinedIcon from '@mui/icons-material/GroupAddOutlined'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+import ManageHistoryOutlinedIcon from '@mui/icons-material/ManageHistoryOutlined'
+import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner'
+import { Fragment, useEffect, useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import pathRouter from '~/constants/path'
 
 export default function DashboardSidebar() {
-    const [openDropdown, setOpenDropdown] = useState<boolean>(false)
+    const [isOpenStudent, setIsOpenStudent] = useState<boolean>(false)
+    const [isOpenAttendance, setIsOpenAttendance] = useState<boolean>(false)
+    const [isModule, setIsModule] = useState<boolean>(false)
+    const { pathname } = useLocation()
+
+    useEffect(() => {
+        const studentItem = pathname.includes('student')
+        const attendanceItem = pathname.includes('attendance')
+        const moduleItem = pathname.includes('module')
+        setIsOpenStudent(studentItem)
+        setIsOpenAttendance(attendanceItem)
+        setIsModule(moduleItem)
+    }, [pathname])
 
     return (
         <aside
@@ -17,79 +37,102 @@ export default function DashboardSidebar() {
                         <ul className='pb-2 space-y-2'>
                             <li>
                                 <button
-                                    onClick={() => setOpenDropdown(!openDropdown)}
-                                    type='button'
-                                    className='flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700'
+                                    onClick={() => setIsOpenStudent(!isOpenStudent)}
+                                    className={`flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700 `}
                                 >
-                                    <svg
-                                        className='flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white'
-                                        fill='currentColor'
-                                        viewBox='0 0 20 20'
-                                        xmlns='http://www.w3.org/2000/svg'
-                                        aria-hidden='true'
-                                    >
-                                        <path d='M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z' />
-                                    </svg>
-                                    <span
-                                        className='flex-1 ml-3 text-left whitespace-nowrap'
-                                        sidebar-toggle-item='true'
-                                    >
-                                        Quản lý sinh viên
-                                    </span>
-                                    <svg
-                                        sidebar-toggle-item='true'
-                                        className='w-6 h-6'
-                                        fill='currentColor'
-                                        viewBox='0 0 20 20'
-                                        xmlns='http://www.w3.org/2000/svg'
-                                    >
-                                        <path
-                                            fillRule='evenodd'
-                                            d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z'
-                                            clipRule='evenodd'
-                                        />
-                                    </svg>
+                                    <Fragment>
+                                        <GroupAddOutlinedIcon />
+                                        <span className='flex-1 ml-3 text-left whitespace-nowrap'>
+                                            Quản lý người dùng
+                                        </span>
+                                    </Fragment>
+                                    {isOpenStudent && <KeyboardArrowDownIcon />}
                                 </button>
-                                <ul id='dropdown-layouts' className={` ${openDropdown == false ? 'hidden' : false}`}>
-                                    <li>
-                                        <a
-                                            href='https://flowbite-admin-dashboard.vercel.app/layouts/stacked/'
-                                            className='flex items-center p-2 text-base text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700'
-                                        >
-                                            Stacked
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a
-                                            href='https://flowbite-admin-dashboard.vercel.app/layouts/sidebar/'
-                                            className='flex items-center p-2 text-base text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700'
-                                        >
-                                            Sidebar
-                                        </a>
-                                    </li>
-                                </ul>
+                                {isOpenStudent && (
+                                    <ul id='dropdown-layouts'>
+                                        <li>
+                                            <Link
+                                                to={pathRouter.student}
+                                                className={`flex items-center p-2 text-base text-gray-900 transition duration-75 rounded-lg pl-5 group hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700 ${pathname === pathRouter.student ? 'bg-gray-100 dark:bg-gray-700' : ''}`}
+                                            >
+                                                <span className='mr-2'>
+                                                    <AccountCircleOutlinedIcon />
+                                                </span>
+                                                Quản lý sinh viên
+                                            </Link>
+                                        </li>
+                                    </ul>
+                                )}
                             </li>
                             <li>
-                                <Link
-                                    to={pathRouter.attendance}
-                                    className='flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700'
+                                <button
+                                    onClick={() => setIsOpenAttendance(!isOpenAttendance)}
+                                    className={`flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700 `}
                                 >
-                                    <svg
-                                        className='flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white'
-                                        fill='currentColor'
-                                        viewBox='0 0 20 20'
-                                        xmlns='http://www.w3.org/2000/svg'
-                                        aria-hidden='true'
-                                    >
-                                        <path d='M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z' />
-                                    </svg>
-                                    <span
-                                        className='flex-1 ml-3 text-left whitespace-nowrap'
-                                        sidebar-toggle-item='true'
-                                    >
-                                        Quản lý điểm danh
-                                    </span>
-                                </Link>
+                                    <Fragment>
+                                        <ChecklistRtlOutlinedIcon />
+                                        <span className='flex-1 ml-3 text-left whitespace-nowrap'>
+                                            Quản lý điểm danh
+                                        </span>
+                                    </Fragment>
+                                    {isOpenAttendance && <KeyboardArrowDownIcon />}
+                                </button>
+                                {isOpenAttendance && (
+                                    <ul id='dropdown-layouts'>
+                                        <li>
+                                            <Link
+                                                to={pathRouter.attendance}
+                                                className={`flex items-center p-2 text-base text-gray-900 transition duration-75 rounded-lg pl-5 group hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700 ${pathname.includes('attendance') && pathname.includes('today') ? 'bg-gray-100 dark:bg-gray-700' : ''}`}
+                                            >
+                                                <span className='mr-2'>
+                                                    <QrCodeScannerIcon />
+                                                </span>
+                                                Điểm danh hôm nay
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link
+                                                to={pathRouter.attendance_history}
+                                                className={`flex items-center p-2 text-base text-gray-900 transition duration-75 rounded-lg pl-5 group hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700 ${pathname === pathRouter.attendance_history ? 'bg-gray-100 dark:bg-gray-700' : ''}`}
+                                            >
+                                                <span className='mr-2'>
+                                                    <ManageHistoryOutlinedIcon />
+                                                </span>
+                                                Lịch sử điểm danh
+                                            </Link>
+                                        </li>
+                                    </ul>
+                                )}
+                            </li>
+                            {/* Quản lý môn học */}
+                            <li>
+                                <button
+                                    onClick={() => setIsModule(!isModule)}
+                                    className={`flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700 `}
+                                >
+                                    <Fragment>
+                                        <MenuBookOutlinedIcon />
+                                        <span className='flex-1 ml-3 text-left whitespace-nowrap'>
+                                            Quản lý học phần
+                                        </span>
+                                    </Fragment>
+                                    {isOpenAttendance && <KeyboardArrowDownIcon />}
+                                </button>
+                                {isModule && (
+                                    <ul id='dropdown-layouts'>
+                                        <li>
+                                            <Link
+                                                to={pathRouter.module}
+                                                className={`flex items-center p-2 text-base text-gray-900 transition duration-75 rounded-lg pl-5 group hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700 ${pathname.includes('module') ? 'bg-gray-100 dark:bg-gray-700' : ''}`}
+                                            >
+                                                <span className='mr-2'>
+                                                    <AutoStoriesOutlinedIcon />
+                                                </span>
+                                                Quản lý môn học
+                                            </Link>
+                                        </li>
+                                    </ul>
+                                )}
                             </li>
                         </ul>
                     </div>

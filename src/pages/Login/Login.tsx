@@ -4,7 +4,7 @@ import { useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { loginApi } from '~/apis/auth.api'
+import authApi from '~/apis/auth.api'
 import MyButton from '~/components/MyButton'
 
 import MyInput from '~/components/MyInput'
@@ -29,7 +29,7 @@ export default function Login() {
     })
 
     const loginMutation = useMutation({
-        mutationFn: (body: Omit<FormData, 'confirm_password'>) => loginApi(body),
+        mutationFn: (body: Omit<FormData, 'confirm_password'>) => authApi.login(body),
     })
 
     const onSubmit = handleSubmit((data) => {

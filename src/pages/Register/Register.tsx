@@ -4,7 +4,7 @@ import { omit } from 'lodash'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { registerApi } from '~/apis/auth.api'
+import authApi from '~/apis/auth.api'
 import MyButton from '~/components/MyButton'
 import MyInput from '~/components/MyInput'
 import pathRouter from '~/constants/path'
@@ -25,7 +25,7 @@ export default function Register() {
         resolver: yupResolver(registerSchema),
     })
     const registerMutation = useMutation({
-        mutationFn: (body: Omit<FormData, 'confirm_password'>) => registerApi(body),
+        mutationFn: (body: Omit<FormData, 'confirm_password'>) => authApi.register(body),
     })
 
     const onSubmit = handleSubmit((data) => {
