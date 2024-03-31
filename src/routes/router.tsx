@@ -1,18 +1,23 @@
 import { useRoutes } from 'react-router-dom'
+import pathRouter from '~/constants/path'
 import DashboardLayout from '~/layouts/DashboardLayout'
 import LoginLayout from '~/layouts/LoginLayout'
 import DashboardHome from '~/pages/DashboardHome'
 import Login from '~/pages/Login'
 import Register from '~/pages/Register'
 import { ProtectedRoute, RejectedRoute } from './roles.routes'
-import pathRouter from '~/constants/path'
 
-import QRCode from '~/pages/ManagerAttendance/pages/QRCode'
-import ManagerStudent from '~/pages/ManagerStudent/ManagerStudent'
-import HistoryAttendance from '~/pages/ManagerAttendance/pages/HistoryAttendance'
 import Attendance from '~/pages/ManagerAttendance/ManagerAttendance'
+import HistoryAttendance from '~/pages/ManagerAttendance/pages/HistoryAttendance'
 import HistoryAttendanceDetail from '~/pages/ManagerAttendance/pages/HistoryAttendanceDetail'
+import QRCode from '~/pages/ManagerAttendance/pages/QRCode'
 import ManagerModule from '~/pages/ManagerModule'
+import AddUserToModule from '~/pages/ManagerModule/pages/AddUserToModule'
+import CreateModule from '~/pages/ManagerModule/pages/CreateModule'
+import ManagerStudent from '~/pages/ManagerStudent/ManagerStudent'
+import ManagerShift from '~/pages/ManagerShift'
+import CreateShift from '~/pages/ManagerShift/pages/CreateShift'
+import AddUserToShift from '~/pages/ManagerShift/pages/AddUserToShift'
 
 export default function useRoutesElement() {
     return useRoutes([
@@ -73,6 +78,46 @@ export default function useRoutesElement() {
                     element: (
                         <DashboardLayout>
                             <ManagerModule />
+                        </DashboardLayout>
+                    ),
+                },
+                {
+                    path: pathRouter.module_create,
+                    element: (
+                        <DashboardLayout>
+                            <CreateModule />
+                        </DashboardLayout>
+                    ),
+                },
+                {
+                    path: pathRouter.module_add_user,
+                    element: (
+                        <DashboardLayout>
+                            <AddUserToModule />
+                        </DashboardLayout>
+                    ),
+                },
+                {
+                    path: pathRouter.shift,
+                    element: (
+                        <DashboardLayout>
+                            <ManagerShift />
+                        </DashboardLayout>
+                    ),
+                },
+                {
+                    path: pathRouter.shift_create,
+                    element: (
+                        <DashboardLayout>
+                            <CreateShift />
+                        </DashboardLayout>
+                    ),
+                },
+                {
+                    path: pathRouter.shift_add_user,
+                    element: (
+                        <DashboardLayout>
+                            <AddUserToShift />
                         </DashboardLayout>
                     ),
                 },

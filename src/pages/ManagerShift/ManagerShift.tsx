@@ -1,38 +1,37 @@
-import { Button, Typography } from '@mui/material'
 import FormatListNumberedOutlinedIcon from '@mui/icons-material/FormatListNumberedOutlined'
-import AddOutlinedIcon from '@mui/icons-material/AddOutlined'
+import { Button, Typography } from '@mui/material'
 import Breadcrumb from '~/components/Breadcrumb'
+import ListShift from './components/ListShift'
+import AddOutlinedIcon from '@mui/icons-material/AddOutlined'
+
+import { useQuery } from '@tanstack/react-query'
+import shiftApi from '~/apis/shift.api'
 import { Link } from 'react-router-dom'
 import pathRouter from '~/constants/path'
-import ListModule from './components/ListModule'
-import { keepPreviousData, useQuery } from '@tanstack/react-query'
-import moduleApi from '~/apis/module.api'
 
-export default function ManagerModule() {
-    const { data: dataModule } = useQuery({
-        queryKey: ['getAllModule'],
-        queryFn: () => moduleApi.getAllModule(),
-        placeholderData: keepPreviousData,
-        staleTime: 1000,
+export default function ManagerShift() {
+    const { data: dataShift } = useQuery({
+        queryKey: ['getAllShift'],
+        queryFn: () => shiftApi.getAllShift(),
     })
 
     return (
         <div className=''>
-            <Breadcrumb props_two='Quản lý môn học' />
+            <Breadcrumb props_two='Điểm danh' />
             <div className='flex items-center justify-between'>
                 <div className='flex items-center gap-2'>
                     <Typography color='grey' sx={{ textTransform: 'uppercase', mt: 1 }} fontSize='22px' variant='h2'>
-                        Danh sách môn học
+                        Danh sách ca điểm danh
                     </Typography>
                     <FormatListNumberedOutlinedIcon sx={{ mt: 0.5, color: 'grey' }} />
                 </div>
-                <Link to={pathRouter.module_create}>
+                <Link to={pathRouter.shift_create}>
                     <Button endIcon={<AddOutlinedIcon />} size='large' variant='outlined' color='secondary'>
-                        Thêm môn học
+                        Tạo ca điểm danh
                     </Button>
                 </Link>
             </div>
-            <ListModule dataModule={dataModule?.data.data ?? []} />
+            <ListShift dataShift={dataShift?.data.data ?? []} />
         </div>
     )
 }

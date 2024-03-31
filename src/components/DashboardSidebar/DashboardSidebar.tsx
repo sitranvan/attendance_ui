@@ -5,6 +5,8 @@ import AutoStoriesOutlinedIcon from '@mui/icons-material/AutoStoriesOutlined'
 import GroupAddOutlinedIcon from '@mui/icons-material/GroupAddOutlined'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import ManageHistoryOutlinedIcon from '@mui/icons-material/ManageHistoryOutlined'
+import EventAvailableIcon from '@mui/icons-material/EventAvailable'
+import AccessAlarmIcon from '@mui/icons-material/AccessAlarm'
 import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner'
 import { Fragment, useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
@@ -13,6 +15,8 @@ import pathRouter from '~/constants/path'
 export default function DashboardSidebar() {
     const [isOpenStudent, setIsOpenStudent] = useState<boolean>(false)
     const [isOpenAttendance, setIsOpenAttendance] = useState<boolean>(false)
+    const [isOpenShift, setIsOpenShift] = useState<boolean>(false)
+
     const [isModule, setIsModule] = useState<boolean>(false)
     const { pathname } = useLocation()
 
@@ -20,9 +24,11 @@ export default function DashboardSidebar() {
         const studentItem = pathname.includes('student')
         const attendanceItem = pathname.includes('attendance')
         const moduleItem = pathname.includes('module')
+        const shiftItem = pathname.includes('shift')
         setIsOpenStudent(studentItem)
         setIsOpenAttendance(attendanceItem)
         setIsModule(moduleItem)
+        setIsOpenShift(shiftItem)
     }, [pathname])
 
     return (
@@ -35,6 +41,7 @@ export default function DashboardSidebar() {
                 <div className='flex flex-col flex-1 pt-5 pb-4 overflow-y-auto'>
                     <div className='flex-1 px-3 space-y-1 bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700'>
                         <ul className='pb-2 space-y-2'>
+                            {/* Quản lý môn học */}
                             <li>
                                 <button
                                     onClick={() => setIsOpenStudent(!isOpenStudent)}
@@ -64,6 +71,7 @@ export default function DashboardSidebar() {
                                     </ul>
                                 )}
                             </li>
+                            {/* Quản lý điểm danh */}
                             <li>
                                 <button
                                     onClick={() => setIsOpenAttendance(!isOpenAttendance)}
@@ -129,6 +137,36 @@ export default function DashboardSidebar() {
                                                     <AutoStoriesOutlinedIcon />
                                                 </span>
                                                 Quản lý môn học
+                                            </Link>
+                                        </li>
+                                    </ul>
+                                )}
+                            </li>
+                            {/* Quản lý ca học */}
+                            <li>
+                                <button
+                                    onClick={() => setIsOpenShift(!isOpenShift)}
+                                    className={`flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700 `}
+                                >
+                                    <Fragment>
+                                        <EventAvailableIcon />
+                                        <span className='flex-1 ml-3 text-left whitespace-nowrap'>
+                                            Quản lý thời gian
+                                        </span>
+                                    </Fragment>
+                                    {isOpenShift && <KeyboardArrowDownIcon />}
+                                </button>
+                                {isOpenShift && (
+                                    <ul id='dropdown-layouts'>
+                                        <li>
+                                            <Link
+                                                to={pathRouter.shift}
+                                                className={`flex items-center p-2 text-base text-gray-900 transition duration-75 rounded-lg pl-5 group hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700 ${pathname.includes('shift') ? 'bg-gray-100 dark:bg-gray-700' : ''}`}
+                                            >
+                                                <span className='mr-2'>
+                                                    <AccessAlarmIcon />
+                                                </span>
+                                                Ca điểm danh
                                             </Link>
                                         </li>
                                     </ul>

@@ -1,4 +1,5 @@
 import { Role } from './role.type'
+import { SuccessResponse } from './utils.type'
 
 export interface User {
     _id: string
@@ -15,3 +16,5 @@ export interface User {
     major_id: null
     class_id: null
 }
+
+export type UserResponse = SuccessResponse<User[]>
