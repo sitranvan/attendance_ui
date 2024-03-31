@@ -1,9 +1,10 @@
 import AddIcon from '@mui/icons-material/Add'
 import { Button } from '@mui/material'
+import { Fragment, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import pathRouter from '~/constants/path'
 import { Shift } from '~/types/shift.type'
-import { formatDate, isDateBeforeToday } from '~/utils/helpers'
+import { checkExistAttendance, formatDate, isDateBeforeToday } from '~/utils/helpers'
 
 interface ListShiftProps {
     dataShift: Shift[]
@@ -82,21 +83,46 @@ export default function ListShift({ dataShift }: ListShiftProps) {
                                 )}
                             </td>
                             <td className='px-4 py-3  space-x-2 whitespace-nowrap'>
-                                {isDateBeforeToday(shift.shift_time) ? (
-                                    <Button disabled endIcon={<AddIcon />} size='medium' variant='contained'>
-                                        Đã hoàn thành điểm danh
-                                    </Button>
-                                ) : (
-                                    <Link to={pathRouter.shift_add_user.replace(':id', shift._id)}>
-                                        <Button endIcon={<AddIcon />} size='medium' color='success' variant='contained'>
-                                            Thêm sinh viên vào ca học
-                                        </Button>
-                                    </Link>
-                                )}
+                                <ShiftButton shift={shift} />
                             </td>
                         </tr>
                     ))}
             </tbody>
         </table>
+    )
+}
+
+interface ShiftButtonProps {
+    shift: Shift
+}
+function ShiftButton({ shift }: ShiftButtonProps) {
+    const [attendanceExists, setAttendanceExists] = useState(false)
+
+    useEffect(() => {
+        checkExistAttendance(shift._id).then((res) => {
+            setAttendanceExists(res)
+        })
+    }, [shift._id])
+
+    return (
+        <Fragment>
+            {isDateBeforeToday(shift.shift_time) ? (
+                <Button disabled endIcon={<AddIcon />} size='medium' variant='contained'>
+                    Đã hoàn thành điểm danh
+                </Button>
+            ) : (
+                <Link to={attendanceExists ? '#' : pathRouter.shift_add_user.replace(':id', shift._id)}>
+                    <Button
+                        endIcon={<AddIcon />}
+                        size='medium'
+                        color='success'
+                        variant='contained'
+                        disabled={attendanceExists}
+                    >
+                        {attendanceExists ? 'Đã thêm' : 'Thêm sinh viên vào ca điểm danh'}
+                    </Button>
+                </Link>
+            )}
+        </Fragment>
     )
 }

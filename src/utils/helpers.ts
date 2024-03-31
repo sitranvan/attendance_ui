@@ -1,4 +1,5 @@
 import axios, { AxiosError, HttpStatusCode } from 'axios'
+import shiftApi from '~/apis/shift.api'
 
 export const isAxiosError = <T>(error: unknown): error is AxiosError<T> => axios.isAxiosError(error)
 
@@ -83,4 +84,9 @@ export const comparePaths = (path1: string, path2: string) => {
 
     // Kiểm tra xem hai đường dẫn đã được loại bỏ phần cụ thể của :id có giống nhau không
     return updatedPath1 === updatedPath2
+}
+
+export const checkExistAttendance = async (shiftId: string) => {
+    const data = await shiftApi.checkExistAttendance(shiftId)
+    return !!data.data.data
 }

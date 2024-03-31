@@ -26,8 +26,17 @@ export interface AttendanceDetail {
     updatedAt: string
 }
 
+export interface CreateAttendance {
+    _id: string
+    shift_id: string
+    user_id: string
+    module_id: string
+}
+
 export type AttendanceResponse = SuccessResponse<Attendance[]>
 export type AttendanceByIdResponse = SuccessResponse<Attendance>
 export type AttendanceUserShiftResponse = SuccessResponse<AttendanceUserShift[]>
 export type AttendanceDetailResponse = SuccessResponse<AttendanceDetail[]>
 export type AttendanceDetailByUserResponse = SuccessResponse<AttendanceDetail>
+export type CreateAttendanceResponse = SuccessResponse<CreateAttendance>
+export type CheckAttendanceResponse = SuccessResponse<CreateAttendance>

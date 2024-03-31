@@ -14,10 +14,10 @@ import QRCode from '~/pages/ManagerAttendance/pages/QRCode'
 import ManagerModule from '~/pages/ManagerModule'
 import AddUserToModule from '~/pages/ManagerModule/pages/AddUserToModule'
 import CreateModule from '~/pages/ManagerModule/pages/CreateModule'
-import ManagerStudent from '~/pages/ManagerStudent/ManagerStudent'
 import ManagerShift from '~/pages/ManagerShift'
-import CreateShift from '~/pages/ManagerShift/pages/CreateShift'
 import AddUserToShift from '~/pages/ManagerShift/pages/AddUserToShift'
+import CreateShift from '~/pages/ManagerShift/pages/CreateShift'
+import ManagerStudent from '~/pages/ManagerStudent/ManagerStudent'
 
 export default function useRoutesElement() {
     return useRoutes([

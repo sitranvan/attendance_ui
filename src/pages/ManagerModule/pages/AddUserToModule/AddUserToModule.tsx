@@ -29,7 +29,7 @@ export default function AddUserToModule() {
             },
         })
     }
-
+    console.log(dataUser?.data.data)
     return (
         <div>
             <Breadcrumb props_two='Quản lý môn học' props_three='Thêm sinh viên vào môn học' />

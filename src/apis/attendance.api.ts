@@ -4,6 +4,7 @@ import {
     AttendanceDetailResponse,
     AttendanceResponse,
     AttendanceUserShiftResponse,
+    CreateAttendanceResponse,
 } from '~/types/attendance.type'
 import { MessageResponse } from '~/types/utils.type'
 import http from '~/utils/http'
@@ -32,6 +33,9 @@ const attendanceApi = {
     },
     deleteAttendanceDetail: (attendance_id: string, user_id: string) => {
         return http.delete<AttendanceDetailByUserResponse>(`/attendances/${attendance_id}/${user_id}/users`)
+    },
+    createAttendance: (body: { shift_id: string; user_id: string; module_id: string }) => {
+        return http.post<CreateAttendanceResponse>('/attendances/create', body)
     },
 }
 

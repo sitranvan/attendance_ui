@@ -5,5 +5,8 @@ const userApi = {
     getAllUser: () => {
         return http.get<UserResponse>('/users')
     },
+    getAllAdmin: () => {
+        return http.get<UserResponse>('/admin')
+    },
 }
 export default userApi

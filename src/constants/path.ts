@@ -1,6 +1,6 @@
 const pathRouter = {
     empty: '',
-    dashboard: '/dashboard',
+    dashboard: '/',
     login: '/login',
     register: '/register',
     logout: '/logout',
