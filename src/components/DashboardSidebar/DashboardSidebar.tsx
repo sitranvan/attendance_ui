@@ -13,7 +13,7 @@ import { Link, useLocation } from 'react-router-dom'
 import pathRouter from '~/constants/path'
 
 export default function DashboardSidebar() {
-    const [isOpenStudent, setIsOpenStudent] = useState<boolean>(false)
+    const [isOpenUser, setIsOpenUser] = useState<boolean>(false)
     const [isOpenAttendance, setIsOpenAttendance] = useState<boolean>(false)
     const [isOpenShift, setIsOpenShift] = useState<boolean>(false)
 
@@ -21,11 +21,11 @@ export default function DashboardSidebar() {
     const { pathname } = useLocation()
 
     useEffect(() => {
-        const studentItem = pathname.includes('student')
+        const userItem = pathname.includes('user')
         const attendanceItem = pathname.includes('attendance')
         const moduleItem = pathname.includes('module')
         const shiftItem = pathname.includes('shift')
-        setIsOpenStudent(studentItem)
+        setIsOpenUser(userItem)
         setIsOpenAttendance(attendanceItem)
         setIsModule(moduleItem)
         setIsOpenShift(shiftItem)
@@ -41,10 +41,10 @@ export default function DashboardSidebar() {
                 <div className='flex flex-col flex-1 pt-5 pb-4 overflow-y-auto'>
                     <div className='flex-1 px-3 space-y-1 bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700'>
                         <ul className='pb-2 space-y-2'>
-                            {/* Quản lý môn học */}
+                            {/* Quản lý người dùng */}
                             <li>
                                 <button
-                                    onClick={() => setIsOpenStudent(!isOpenStudent)}
+                                    onClick={() => setIsOpenUser(!isOpenUser)}
                                     className={`flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700 `}
                                 >
                                     <Fragment>
@@ -53,19 +53,19 @@ export default function DashboardSidebar() {
                                             Quản lý người dùng
                                         </span>
                                     </Fragment>
-                                    {isOpenStudent && <KeyboardArrowDownIcon />}
+                                    {isOpenUser && <KeyboardArrowDownIcon />}
                                 </button>
-                                {isOpenStudent && (
+                                {isOpenUser && (
                                     <ul id='dropdown-layouts'>
                                         <li>
                                             <Link
-                                                to={pathRouter.student}
-                                                className={`flex items-center p-2 text-base text-gray-900 transition duration-75 rounded-lg pl-5 group hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700 ${pathname === pathRouter.student ? 'bg-gray-100 dark:bg-gray-700' : ''}`}
+                                                to={pathRouter.user}
+                                                className={`flex items-center p-2 text-base text-gray-900 transition duration-75 rounded-lg pl-5 group hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700 ${pathname.includes('user') ? 'bg-gray-100 dark:bg-gray-700' : ''}`}
                                             >
                                                 <span className='mr-2'>
                                                     <AccountCircleOutlinedIcon />
                                                 </span>
-                                                Quản lý sinh viên
+                                                Quản lý người dùng
                                             </Link>
                                         </li>
                                     </ul>

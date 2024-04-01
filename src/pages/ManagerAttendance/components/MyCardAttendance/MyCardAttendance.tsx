@@ -2,6 +2,7 @@ import { Typography } from '@mui/material'
 import { Link } from 'react-router-dom'
 import pathRouter from '~/constants/path'
 import { Attendance } from '~/types/attendance.type'
+import { formatDate } from '~/utils/helpers'
 
 interface MyCardAttendanceProps {
     attendances?: Attendance[]
@@ -29,7 +30,8 @@ export default function MyCardAttendance({ attendances }: MyCardAttendanceProps)
                             />
                         </svg>
                         <Typography>
-                            {attendance.shift_id.days_of_week} - {attendance.shift_id.shift_name}
+                            {formatDate(attendance.shift_id.shift_time)} <br /> {attendance.shift_id.days_of_week} -{' '}
+                            {attendance.shift_id.shift_name}
                         </Typography>
                     </div>
                     <div className='flex gap-4'>

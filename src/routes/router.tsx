@@ -4,7 +4,7 @@ import DashboardLayout from '~/layouts/DashboardLayout'
 import LoginLayout from '~/layouts/LoginLayout'
 import DashboardHome from '~/pages/DashboardHome'
 import Login from '~/pages/Login'
-import Register from '~/pages/Register'
+
 import { ProtectedRoute, RejectedRoute } from './roles.routes'
 
 import Attendance from '~/pages/ManagerAttendance/ManagerAttendance'
@@ -17,7 +17,8 @@ import CreateModule from '~/pages/ManagerModule/pages/CreateModule'
 import ManagerShift from '~/pages/ManagerShift'
 import AddUserToShift from '~/pages/ManagerShift/pages/AddUserToShift'
 import CreateShift from '~/pages/ManagerShift/pages/CreateShift'
-import ManagerStudent from '~/pages/ManagerStudent/ManagerStudent'
+import ManagerUser from '~/pages/ManagerUser/ManagerUser'
+import CreateAccount from '~/pages/ManagerUser/pages/CreateAccount'
 
 export default function useRoutesElement() {
     return useRoutes([
@@ -66,10 +67,34 @@ export default function useRoutesElement() {
                     ),
                 },
                 {
-                    path: pathRouter.student,
+                    path: pathRouter.user,
                     element: (
                         <DashboardLayout>
-                            <ManagerStudent />
+                            <ManagerUser />
+                        </DashboardLayout>
+                    ),
+                },
+                {
+                    path: pathRouter.user_create,
+                    element: (
+                        <DashboardLayout>
+                            <CreateAccount />
+                        </DashboardLayout>
+                    ),
+                },
+                {
+                    path: pathRouter.user_teacher,
+                    element: (
+                        <DashboardLayout>
+                            <ManagerUser />
+                        </DashboardLayout>
+                    ),
+                },
+                {
+                    path: pathRouter.user_teacher_create,
+                    element: (
+                        <DashboardLayout>
+                            <CreateAccount />
                         </DashboardLayout>
                     ),
                 },
@@ -127,14 +152,6 @@ export default function useRoutesElement() {
             path: pathRouter.empty,
             element: <RejectedRoute />,
             children: [
-                {
-                    path: pathRouter.register,
-                    element: (
-                        <LoginLayout>
-                            <Register />
-                        </LoginLayout>
-                    ),
-                },
                 {
                     path: pathRouter.login,
                     element: (

@@ -11,9 +11,10 @@ import { User } from '~/types/user.type'
 
 interface ListStudentAbsentProps {
     listAbsent: User[]
+    isDisabled?: boolean
 }
 
-export default function ListStudentAbsent({ listAbsent }: ListStudentAbsentProps) {
+export default function ListStudentAbsent({ listAbsent, isDisabled }: ListStudentAbsentProps) {
     const { id: attendance_id } = useParams<{ id: string }>()
 
     const scanerMutation = useMutation({
@@ -107,6 +108,7 @@ export default function ListStudentAbsent({ listAbsent }: ListStudentAbsentProps
                                         onClick={() => handleAttendance(user._id)}
                                         size='medium'
                                         color='success'
+                                        disabled={isDisabled}
                                         variant='contained'
                                     >
                                         Điểm Danh

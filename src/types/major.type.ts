@@ -1,9 +1,9 @@
 import { SuccessResponse } from './utils.type'
 
-export interface Role {
+export interface Major {
     _id: string
     name: string
-    slug: string
     description: string
 }
-export type RoleResponse = SuccessResponse<Role[]>
+
+export type MajorResponse = SuccessResponse<Major[]>

@@ -129,7 +129,10 @@ export default function HistoryAttendanceDetail() {
                                         </Button>
                                     </div>
                                 ) : (
-                                    <ListStudentScaner listAttendanceDetail={listAttendaceDetail?.data.data ?? []} />
+                                    <ListStudentScaner
+                                        isDisabled
+                                        listAttendanceDetail={listAttendaceDetail?.data.data ?? []}
+                                    />
                                 )}
                             </div>
                         </CustomTabPanel>
@@ -142,7 +145,7 @@ export default function HistoryAttendanceDetail() {
                                         </Button>
                                     </div>
                                 ) : (
-                                    <ListStudentAbsent listAbsent={listAbsent ?? []} />
+                                    <ListStudentAbsent isDisabled listAbsent={listAbsent ?? []} />
                                 )}
                             </div>
                         </CustomTabPanel>

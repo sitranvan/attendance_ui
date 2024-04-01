@@ -14,8 +14,9 @@ import { extractDateTimeFull } from '~/utils/helpers'
 
 interface ListStudentScanerProps {
     listAttendanceDetail: AttendanceDetail[]
+    isDisabled?: boolean
 }
-export default function ListStudentScaner({ listAttendanceDetail }: ListStudentScanerProps) {
+export default function ListStudentScaner({ listAttendanceDetail, isDisabled }: ListStudentScanerProps) {
     const [open, setOpen] = useState<boolean>(false)
     const userIdRef = useRef<string>('')
     const [dataNote, setDataNote] = useState<{ user_id: string; attendance_id: string }>({
@@ -151,6 +152,7 @@ export default function ListStudentScaner({ listAttendanceDetail }: ListStudentS
                                         onClick={() => handleOpen(user.user_id._id)}
                                         size='medium'
                                         color='success'
+                                        disabled={isDisabled}
                                         variant='contained'
                                     >
                                         Ghi chú
@@ -159,6 +161,7 @@ export default function ListStudentScaner({ listAttendanceDetail }: ListStudentS
                                         onClick={() => handleCancelAttendance(user.user_id._id)}
                                         size='medium'
                                         color='warning'
+                                        disabled={isDisabled}
                                         variant='contained'
                                     >
                                         Hủy Điểm Danh

@@ -5,7 +5,7 @@ import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import attendanceApi from '~/apis/attendance.api'
 import Breadcrumb from '~/components/Breadcrumb'
-import { formatDate, isSameDay } from '~/utils/helpers'
+import { formatDate, isDateAfterToday, isSameDay } from '~/utils/helpers'
 
 export default function HistoryAttendance() {
     const { data: attendances } = useQuery({
@@ -18,7 +18,10 @@ export default function HistoryAttendance() {
     // Chỉ lấy ra buổi điểm danh của ngày hiện tại
     const attendancesFilter = useMemo(() => {
         if (!attendances || !attendances.data || !attendances.data.data) return [] // Tránh lỗi khi dữ liệu không tồn tại
-        return attendances.data.data.filter((attendance) => !isSameDay(attendance.shift_id.shift_time))
+        return attendances.data.data.filter(
+            (attendance) =>
+                !isSameDay(attendance.shift_id.shift_time) && isDateAfterToday(attendance.shift_id.shift_time),
+        )
     }, [attendances])
 
     return (

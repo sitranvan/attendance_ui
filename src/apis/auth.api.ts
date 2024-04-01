@@ -1,9 +1,10 @@
+import { FormDataAccount } from '~/pages/ManagerUser/pages/CreateAccount/CreateAccount'
 import { AuthResponse } from '~/types/auth.type'
 import { MessageResponse } from '~/types/utils.type'
 import http from '~/utils/http'
 
 const authApi = {
-    register: (body: { email: string; password: string }) => {
+    createAccount: (body: FormDataAccount) => {
         return http.post<AuthResponse>('/register', body)
     },
     login: (body: { email: string; password: string }) => {

@@ -17,7 +17,7 @@ import attendanceApi from '~/apis/attendance.api'
 import Breadcrumb from '~/components/Breadcrumb'
 import { queryClient } from '~/main'
 import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner'
-
+import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward'
 import CameraAltIcon from '@mui/icons-material/CameraAlt'
 import ListStudentAbsent from '../../components/ListStudentAbsent'
 import ListStudentScaner from '../../components/ListStudentScaner'
@@ -146,7 +146,15 @@ export default function QRCode() {
                     <CameraAltIcon sx={{ mt: 0.2, color: 'grey' }} />
                 </div>
                 {listUserShift?.data?.data[0] && (
-                    <React.Fragment>
+                    <div className='flex items-center gap-x-3'>
+                        <a
+                            target='_blank'
+                            href='https://docs.google.com/spreadsheets/d/1QvrWfJQnrViyY95vRn2qVqZrz7ocMmvBUCEBaVu8gCQ/edit#gid=0'
+                        >
+                            <Button endIcon={<ArrowOutwardIcon />} size='large' color='secondary' variant='outlined'>
+                                Sheets
+                            </Button>
+                        </a>
                         <Button
                             endIcon={<QrCodeScannerIcon />}
                             size='large'
@@ -192,7 +200,7 @@ export default function QRCode() {
                                 </Button>
                             </DialogActions>
                         </Dialog>
-                    </React.Fragment>
+                    </div>
                 )}
             </div>
 

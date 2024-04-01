@@ -1,6 +1,7 @@
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined'
 import { Button, Typography } from '@mui/material'
 import { useMutation } from '@tanstack/react-query'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
@@ -27,6 +28,7 @@ interface FormData {
 
 export default function CreateShift() {
     const { register, handleSubmit } = useForm<FormData>()
+    const [selectedDay, setSelectedDay] = useState<string>('')
     const navigate = useNavigate()
     const createShiftMutation = useMutation({
         mutationFn: (body: { shift_time: string; shift_name: string; days_of_week: string }) =>
@@ -34,7 +36,12 @@ export default function CreateShift() {
     })
 
     const onSubmit = handleSubmit((data) => {
-        createShiftMutation.mutate(data, {
+        const body = {
+            shift_time: data.shift_time,
+            shift_name: data.shift_name,
+            days_of_week: selectedDay,
+        }
+        createShiftMutation.mutate(body, {
             onSuccess: (data) => {
                 toast.success(data.data.message)
                 navigate(pathRouter.shift)
@@ -42,6 +49,12 @@ export default function CreateShift() {
         })
     })
 
+    const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const date = new Date(event.target.value)
+        const dayOfWeek = date.getDay()
+        const days = ['Chủ nhật', 'Thứ hai', 'Thứ ba', 'Thứ tư', 'Thứ năm', 'Thứ sáu', 'Thứ bảy']
+        setSelectedDay(days[dayOfWeek])
+    }
     return (
         <div>
             <Breadcrumb props_two='Quản lý môn học' props_three='Thêm môn học' />
@@ -63,6 +76,7 @@ export default function CreateShift() {
                         </label>
                         <input
                             {...register('shift_time')}
+                            onChange={handleDateChange}
                             className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5'
                             type='datetime-local'
                         />
@@ -76,6 +90,7 @@ export default function CreateShift() {
                         </label>
                         <select
                             {...register('days_of_week')}
+                            value={selectedDay}
                             id='countries_disabled'
                             className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 '
                         >

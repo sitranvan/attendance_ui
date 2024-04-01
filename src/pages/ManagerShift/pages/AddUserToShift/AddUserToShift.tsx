@@ -40,9 +40,9 @@ export default function AddUserToShift() {
         queryFn: () => moduleApi.getAllModule(),
     })
 
-    const { data: dataAdmin } = useQuery({
-        queryKey: ['getAllAdmin'],
-        queryFn: () => userApi.getAllAdmin(),
+    const { data: dataTeacher } = useQuery({
+        queryKey: ['getFullUser'],
+        queryFn: () => userApi.getFullUser(),
     })
 
     const createAttendanceMutation = useMutation({
@@ -131,11 +131,14 @@ export default function AddUserToShift() {
                         id='demo-simple-select'
                         label='Chọn giáo viên '
                     >
-                        {dataAdmin?.data.data.map((user) => (
-                            <MenuItem key={user._id} value={user._id}>
-                                {user.fullname}
-                            </MenuItem>
-                        ))}
+                        {dataTeacher?.data.data.map((user) => {
+                            if (user.role_info.slug === 'admin' || user.role_info.slug === 'student') return null
+                            return (
+                                <MenuItem key={user._id} value={user._id}>
+                                    {user.fullname}
+                                </MenuItem>
+                            )
+                        })}
                     </Select>
                 </FormControl>
 

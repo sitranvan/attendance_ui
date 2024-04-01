@@ -62,6 +62,18 @@ export const isDateBeforeToday = (dateTimeString: string): boolean => {
     return inputDate.getTime() < currentDate.getTime()
 }
 
+export const isDateAfterToday = (dateTimeString: string): boolean => {
+    const inputDateTime = new Date(dateTimeString)
+    const currentDateTime = new Date()
+
+    // Lấy phần nguyên của ngày, tháng và năm
+    const inputDate = new Date(inputDateTime.getFullYear(), inputDateTime.getMonth(), inputDateTime.getDate())
+    const currentDate = new Date(currentDateTime.getFullYear(), currentDateTime.getMonth(), currentDateTime.getDate())
+
+    // So sánh ngày, tháng và năm của hai đối tượng Date
+    return inputDate.getTime() < currentDate.getTime()
+}
+
 // So sánh active khi có id lỗi (so sánh /attendance/6603d082191b5d72dcecb294/today và /attendance/:id/today )
 export const comparePaths = (path1: string, path2: string) => {
     // Tách các phần tử của đường dẫn thành mảng
