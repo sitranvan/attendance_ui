@@ -19,8 +19,8 @@ class Http {
         this.accessToken = getAccessTokenFromLS()
         this.refreshToken = getRefreshTokenFromLS()
         this.instance = axios.create({
-            // baseURL: 'https://attendance-api-n2i1.onrender.com/api/v1/',
-            baseURL: 'http://localhost:3000/api/v1/',
+            baseURL: 'https://attendance-api-n2i1.onrender.com/api/v1/',
+            // baseURL: 'http://localhost:3000/api/v1/',
             timeout: 10000,
             headers: {
                 'Content-Type': 'application/json',
